@@ -3,7 +3,8 @@ from django.conf import settings
 
 
 class Origin(models.Model):
-    superhero = models.ForeignKey(settings.AUTH_USER_MODEL)
+    superhero = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  on_delete=models.DO_NOTHING)
     origin = models.CharField(max_length=100)
 
     def __str__(self):
@@ -24,9 +25,10 @@ class Location(models.Model):
 
 
 class Sighting(models.Model):
-    superhero = models.ForeignKey(settings.AUTH_USER_MODEL)
+    superhero = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  on_delete=models.DO_NOTHING)
     power = models.CharField(max_length=100)
-    location = models.ForeignKey(Location)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     sighted_on = models.DateTimeField()
 
     def __str__(self):
