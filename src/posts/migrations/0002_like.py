@@ -17,8 +17,10 @@ class Migration(migrations.Migration):
             name='Like',
             fields=[
                 ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('liked_by', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('post', models.ForeignKey(to='posts.Post')),
+                ('liked_by', models.ForeignKey(to=settings.AUTH_USER_MODEL,
+                                               on_delete=models.DO_NOTHING)),
+                ('post', models.ForeignKey(to='posts.Post',
+                                           on_delete=models.DO_NOTHING)),
             ],
             options={
             },

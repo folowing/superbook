@@ -10,6 +10,7 @@ class BaseProfile(models.Model):
         (1, 'SuperHero'),
     )
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                on_delete=models.DO_NOTHING,
                                 primary_key=True)
     user_type = models.IntegerField(null=True,
                                     choices=USER_TYPES)

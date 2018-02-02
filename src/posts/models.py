@@ -12,7 +12,9 @@ class TimeStampedModel(models.Model):
 
 
 class Postable(TimeStampedModel):
-    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True,
+    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  on_delete=models.DO_NOTHING,
+                                  blank=True,
                                   null=True, related_name="%(class)ss")
     message = models.TextField(max_length=500)
 
@@ -32,18 +34,21 @@ class Post(Postable):
     privacy = models.CharField(max_length=12, choices=POST_PRIVACY,
                                default='public')
     # A recipient is needed if the privacy is set to "Individual"
-    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True,
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  on_delete=models.DO_NOTHING,
+                                  blank=True,
                                   null=True, related_name="recieved_posts")
     objects = PostManager()
 
 
 class Comment(Postable):
-    parent_post = models.ForeignKey(Post)
+    parent_post = models.ForeignKey(Post, on_delete=models.DO_NOTHING)
 
 
 class Like(models.Model):
-    liked_by = models.ForeignKey(settings.AUTH_USER_MODEL)
-    post = models.ForeignKey(Post)
+    liked_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                 on_delete=models.DO_NOTHING)
+    post = models.ForeignKey(Post, on_delete=models.DO_NOTHING,)
 
     def __str__(self):
         return "{} liked <{}>".format(self.liked_by, self.post)

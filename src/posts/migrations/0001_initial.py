@@ -34,8 +34,8 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('message', models.TextField(max_length=500)),
                 ('privacy', models.CharField(max_length=12, choices=[('public', 'Public'), ('individual', 'Individual')], default='public')),
-                ('posted_by', models.ForeignKey(null=True, related_name='posts', blank=True, to=settings.AUTH_USER_MODEL)),
-                ('recipient', models.ForeignKey(null=True, related_name='recieved_posts', blank=True, to=settings.AUTH_USER_MODEL)),
+                ('posted_by', models.ForeignKey(null=True, on_delete=models.DO_NOTHING, related_name='posts', blank=True, to=settings.AUTH_USER_MODEL)),
+                ('recipient', models.ForeignKey(null=True, on_delete=models.DO_NOTHING, related_name='recieved_posts', blank=True, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ['-created'],
@@ -46,13 +46,14 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='parent_post',
-            field=models.ForeignKey(to='posts.Post'),
+            field=models.ForeignKey(to='posts.Post', on_delete=models.DO_NOTHING),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='comment',
             name='posted_by',
-            field=models.ForeignKey(null=True, related_name='comments', blank=True, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(null=True, on_delete=models.DO_NOTHING,
+                                    related_name='comments', blank=True, to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
     ]

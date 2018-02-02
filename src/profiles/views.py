@@ -2,7 +2,7 @@
 from django.views import generic
 from . import forms
 from django.shortcuts import redirect
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -13,6 +13,9 @@ class SignInAndSignUp(generic.edit.FormMixin, generic.TemplateView):
 
     signin_form_class = forms.LoginForm
     signup_form_class = forms.SignupForm
+
+    def get_context_data(self, **kwargs):
+        return generic.base.ContextMixin.get_context_data(self, **kwargs)
 
     def get(self, request, *args, **kwargs):
         if "signin_form" not in kwargs:

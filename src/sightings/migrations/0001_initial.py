@@ -29,7 +29,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('origin', models.CharField(max_length=100)),
-                ('superhero', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('superhero', models.ForeignKey(to=settings.AUTH_USER_MODEL,
+                                                on_delete=models.DO_NOTHING)),
             ],
             options={
             },
@@ -41,8 +42,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('power', models.CharField(max_length=100)),
                 ('sighted_on', models.DateTimeField()),
-                ('location', models.ForeignKey(to='sightings.Location')),
-                ('superhero', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('location', models.ForeignKey(to='sightings.Location',
+                                               on_delete=models.DO_NOTHING)),
+                ('superhero', models.ForeignKey(to=settings.AUTH_USER_MODEL,
+                                                on_delete=models.DO_NOTHING)),
             ],
             options={
             },
